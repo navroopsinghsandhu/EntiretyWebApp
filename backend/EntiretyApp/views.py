@@ -27,7 +27,7 @@ def userRegistrationApi(request,id=0):
 def userLoginApi(request):
     data = JSONParser().parse(request)
     userExist = False
-    username = data["Username"]
+    username = data["UserName"]
     password = data["Password"]
     users = Users.objects.all()
     users_serializer=UserSerializer(users,many=True)
