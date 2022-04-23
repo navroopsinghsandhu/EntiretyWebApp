@@ -12,18 +12,15 @@ function Nav() {
                 <div className="logo">
                     <img src={logo} alt="logo"/>
                 </div>
-                <Link to="/">
-                    <li><a href="#home">Home</a></li>
+                <Link to="/" style={{ textDecoration: 'none' }}>
+                    <li>Home</li>
                 </Link>
-                <Link to="/login">
-                    <li><a href="#login">Login</a></li>
+                <Link to="/login" style={{ textDecoration: 'none' }}>
+                    <li>Login</li>
                 </Link>
-                <Link to="/register">
-                    <li><a href="#register">Register</a></li>
+                <Link to="/register" style={{ textDecoration: 'none' }}>
+                    <li>Register</li>
                 </Link>
-                {/* <Link to="/cart">
-                    <li><a href="#cart">Cart</a></li>
-                </Link> */}
             </ul>
     
             <div className="rightNav">

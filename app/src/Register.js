@@ -3,38 +3,140 @@ import React, {useState} from 'react';
 import './Form.css';
 
 function Register() {
-  return (
 
-        <div className="form">
-            <div className="form-body">
-                <div className="username">
-                    <label className="form__label" for="firstName">First Name </label>
-                    <input className="form__input" type="text" id="firstName" placeholder="First Name"/>
-                </div>
-                <div className="lastname">
-                    <label className="form__label" for="lastName">Last Name </label>
-                    <input  type="text" name="" id="lastName"  className="form__input"placeholder="Last Name"/>
-                </div>
-                <div className="username">
-                    <label className="form__label" for="userName">Userame </label>
-                    <input className="form__input" type="text" id="userName" placeholder="Username"/>
-                </div>
-                <div className="password">
-                    <label className="form__label" for="password">Password </label>
-                    <input className="form__input" type="password"  id="password" placeholder="Password"/>
-                </div>
-                {/* <div className="confirm-password">
-                    <label className="form__label" for="confirmPassword">Confirm Password </label>
-                    <input className="form__input" type="password" id="confirmPassword" placeholder="Confirm Password"/>
-                </div> */}
-            </div>
-            <div className="footer">
-                <button type="submit" class="btn">Register</button>
-            </div>
-        </div>      
+    // States for registration
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
 
+    // States for checking the errors
+    const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState(false);
 
-  );
+    // Handling the name change
+    const handleFirstName = (e) => {
+    setFirstName(e.target.value);
+    setSubmitted(false);
+    };
+
+    // Handling the name change
+    const handleLastName = (e) => {
+        setLastName(e.target.value);
+        setSubmitted(false);
+    };
+
+    // Handling the name change
+    const handleUserName = (e) => {
+        setUserName(e.target.value);
+        setSubmitted(false);
+        };
+
+    // Handling the password change
+    const handlePassword = (e) => {
+    setPassword(e.target.value);
+    setSubmitted(false);
+    };
+
+    // Handling the form submission
+    const handleSubmit = (e) => {
+    e.preventDefault();
+    if (firstName === '' || lastName === '' || userName === '' || password === '') {
+        setError(true);
+    } else {
+        setSubmitted(true);
+        setError(false);
+        console.log(firstName, lastName, userName, password);
+        // try {
+            let res = fetch("http://127.0.0.1:8000/user", {
+              method: "POST",
+              body: JSON.stringify({
+                UserName: userName,
+                FirstName: firstName,
+                LastName: lastName,
+                Password: password
+              }),
+            });
+        //     let resJson = res.json();
+        //     if (res.status === 200) {
+        //     //   setName("");
+        //     //   setEmail("");
+        //     //   setMessage("User created successfully");
+        //     } else {
+        //     //   setMessage("Some error occured");
+        //     console.log("REGISTRATION ERROR");
+        //     }
+        //   } catch (err) {
+        //     console.log(err);
+        // }
+    }
+    };
+
+    // Showing success message
+    const successMessage = () => {
+    return (
+        <div
+        className="success"
+        style={{
+            display: submitted ? '' : 'none',
+        }}>
+        <h1>User {firstName} successfully registered!</h1>
+        </div>
+    );
+    };
+
+    // Showing error message if error is true
+    const errorMessage = () => {
+    return (
+        <div
+        className="error"
+        style={{
+            display: error ? '' : 'none',
+        }}>
+        <h1>Please enter all the fields</h1>
+        </div>
+    );
+    };
+
+    return (
+    <div className="form">
+        <div>
+        <h1>User Registration</h1>
+        </div>
+
+        {/* Calling to the methods */}
+        <div className="messages">
+        {errorMessage()}
+        {successMessage()}
+        </div>
+
+        <form>
+        {/* Labels and inputs for form data */}
+        <label className="label">First Name</label>
+        <input onChange={handleFirstName} className="input"
+            value={firstName} type="text" />
+
+        <label className="label">Last Name</label>
+        <input onChange={handleLastName} className="input"
+            value={lastName} type="text" />
+
+        <label className="label">Username</label>
+        <input onChange={handleUserName} className="input"
+            value={userName} type="text" />
+
+        <label className="label">Password</label>
+        <input onChange={handlePassword} className="input"
+            value={password} type="password" />
+
+        <button onClick={handleSubmit} className="btn_register" type="submit">
+            Submit
+        </button>
+        </form>
+    </div>
+    );
+    
 }
 
 export default Register;
+// http://127.0.0.1:8000/user
+
