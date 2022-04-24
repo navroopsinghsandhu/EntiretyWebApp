@@ -3,14 +3,12 @@ import './App.css';
 // import { Link } from 'react-router-dom';
 // import UserPage from './UserPage';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
-
-  
-
-function Login() {
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+ 
+function Login({ setToken }) {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
-  
     // User Login info
     // const database = [
     //   {
@@ -23,7 +21,7 @@ function Login() {
     //   }
     // ];
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
 
     let database;
@@ -56,12 +54,30 @@ function Login() {
         } else {
           setIsSubmitted(true);
           // Redirect to User's home page with products list
-        //   navigate('/user');
+        
+        fetch("http://127.0.0.1:8000/login", {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'UserName': uname.value,
+          'Password': pass.value,
+        })
+        })
+        .then(res =>
+        res.json()).then(userdata => {
+            console.log(userdata["token"])
+            // token = userdata;
+            setToken(userdata["token"]);
+        })
         }
       } else {
         // Username not found
         setErrorMessages({ name: "uname", message: errors.uname });
       }
+      navigate(`/`);
     };
   
     // Generate JSX code for error message
@@ -85,7 +101,7 @@ function Login() {
             {renderErrorMessage("pass")}
           </div>
           <div className="button-container">
-            <input type="submit" />
+          <input type="submit" />
           </div>
         </form>
       </div>
@@ -102,5 +118,9 @@ function Login() {
       </div>
     );
 }
+
+Login.propTypes = {
+  setToken: PropTypes.func.isRequired
+};
 
 export default Login;

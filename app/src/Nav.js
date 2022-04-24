@@ -1,10 +1,26 @@
 import logo from './logo.svg';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
 
-function Nav() {
-  return (
+function Nav({token, setToken}) {
+    const [ isLoggedIn, setIsLoggedIn] = useState(true)
+
+    let logInFlag = false;
+    if(typeof(token)  == "string" && token != "false") {
+        logInFlag = true
+    }
+
+    useEffect(() => {
+        setIsLoggedIn(logInFlag)
+    });
+ 
+    const handleClick = () => {
+        setIsLoggedIn(false)
+        setToken(false)
+    }
+
+    return (
 
     <div>
         <nav className ="navbar background">
@@ -15,14 +31,14 @@ function Nav() {
                 <Link to="/" style={{ textDecoration: 'none' }}>
                     <li>Home</li>
                 </Link>
-                <Link to="/login" style={{ textDecoration: 'none' }}>
+                { !isLoggedIn ? <Link to="/login" style={{ textDecoration: 'none' }}>
                     <li>Login</li>
-                </Link>
-                <Link to="/register" style={{ textDecoration: 'none' }}>
+                </Link>: <li onClick={handleClick} >Logout</li> }
+                { !isLoggedIn  ? <Link to="/register" style={{ textDecoration: 'none' }}>
                     <li>Register</li>
-                </Link>
+                </Link> : '' }
             </ul>
-    
+
             <div className="rightNav">
                 <input type="text" placeholder="Search for products..."name="search" id="search"/>
                 <button className="btn btn-sm" type="submit"><i className="fa fa-search"></i></button>
@@ -31,7 +47,7 @@ function Nav() {
         </nav>
     </div>
 
-  );
+    );
 }
 
 export default Nav;
