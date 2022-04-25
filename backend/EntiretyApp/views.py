@@ -27,7 +27,7 @@ def userRegistrationApi(request,id=0):
 def userLoginApi(request):
     data = JSONParser().parse(request)
     userExist = False
-    username = data["Username"]
+    username = data["UserName"]
     password = data["Password"]
     users = Users.objects.all()
     users_serializer=UserSerializer(users,many=True)
@@ -45,8 +45,8 @@ def userLoginApi(request):
         if(userExist) :
             break
     if(userExist) :
-        return JsonResponse("Login Successful",safe=False)
-    return JsonResponse("Username or Password is incorrect",safe=False)
+        return JsonResponse({"message" : "Login Successful", "token": username},safe=False)
+    return JsonResponse({"message" : "Username or Password is incorrect", "token" : ''},safe=False)
     
 @csrf_exempt
 def productsApi(request,id=0):
