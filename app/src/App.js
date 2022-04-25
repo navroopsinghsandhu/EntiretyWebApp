@@ -5,6 +5,8 @@ import Home from './Home';
 import Nav from './Nav';
 import Register from './Register';
 import UserPage from './UserPage';
+import ProductsPage from './ProductsPage';
+import AddProductsPage from './AddProductsPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import useToken from './useToken';
@@ -20,8 +22,10 @@ function App() {
             <Route path="/" element={<Home/>} />
             <Route path="/register" element={<Register/>} />
             <Route path="/login" element={<Login setToken={setToken}/>} />
-            <Route path="/user" element={<UserPage />} />
-        </Routes> 
+            <Route path="/products" element={<ProductsPage/>} />
+            <Route path="/addproducts" element={<AddProductsPage/>} />
+            <Route path="/user" element={<UserPage/>} />
+        </Routes>
     </div>
     </Router>
   );

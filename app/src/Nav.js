@@ -36,6 +36,12 @@ function Nav({token, setToken}) {
                 </Link>: <li onClick={handleClick} >Logout</li> }
                 { !isLoggedIn  ? <Link to="/register" style={{ textDecoration: 'none' }}>
                     <li>Register</li>
+                </Link>
+                <Link to="/products" style={{ textDecoration: 'none' }}>
+                    <li>Products</li>
+                </Link>
+                <Link to="/addproducts" style={{ textDecoration: 'none' }}>
+                    <li>Add Products</li>
                 </Link> : '' }
             </ul>
 
