@@ -48,7 +48,7 @@ function Register() {
         setError(false);
         console.log(firstName, lastName, userName, password);
         // try {
-            let res = fetch("http://127.0.0.1:8000/user", {
+            fetch("http://127.0.0.1:8000/user", {
               method: "POST",
               body: JSON.stringify({
                 UserName: userName,

@@ -36,6 +36,32 @@ function ProductsPage() {
     <div>
         
         <h1 className="heading">All Products</h1>
+          <Product
+            ProductName="Stapler"
+            ProductPrice="30"
+            ProductPhotoFileName= {require('./product_images/Stapler.jpg')}
+          />
+          <Product
+            ProductName="Highlighters"
+            ProductPrice="20"
+            ProductPhotoFileName= {require('./product_images/Highlighters.jpg')}
+          />
+          <Product
+            ProductName="Pens"
+            ProductPrice="10"
+            ProductPhotoFileName= {require('./product_images/Pens.jpg')}
+          />
+          <Product
+            ProductName="Chair"
+            ProductPrice="80"
+            ProductPhotoFileName= {require('./product_images/Chair.jpg')}
+          />
+          <Product
+            ProductName="Desk"
+            ProductPrice="150"
+            ProductPhotoFileName= {require('./product_images/Desk.jpg')}
+          />
+
         {data.map(createProduct)}
         <Footer /> 
         

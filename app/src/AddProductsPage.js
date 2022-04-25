@@ -1,6 +1,7 @@
 // import React from 'react';
 import React, {useState} from 'react';
 import './Form.css';
+// import axios from 'axios';
 
 function AddProductsPage() {
 
@@ -31,12 +32,19 @@ function AddProductsPage() {
         setProductPhotoFileName(e.target.value);
         setSubmitted(false);
     };
+    // const handleProductPhotoFileName = (e) => {
+    //     const image = e.target.files[0];
+    
+    //     if (image.size < 1000000) {
+    //         setProductPhotoFileName(image);
 
-    // Handling the password change
-    // const handlePassword = (e) => {
-    // setPassword(e.target.value);
-    // setSubmitted(false);
-    // };
+    //         setSubmitted(false);
+    //     }
+    //     else {
+    //       window.alert("Image files must be less than 1 MB.")
+    //     }
+        
+    //   }
 
     // Handling the form submission
     const handleSubmit = (e) => {
@@ -48,7 +56,7 @@ function AddProductsPage() {
         setError(false);
         console.log(ProductName, ProductPrice, ProductPhotoFileName);
         // try {
-            let res = fetch("http://127.0.0.1:8000/products", {
+            fetch("http://127.0.0.1:8000/products", {
               method: "POST",
               body: JSON.stringify({
                 ProductPhotoFileName: ProductPhotoFileName,
@@ -56,18 +64,6 @@ function AddProductsPage() {
                 ProductPrice: ProductPrice
               }),
             });
-        //     let resJson = res.json();
-        //     if (res.status === 200) {
-        //     //   setName("");
-        //     //   setEmail("");
-        //     //   setMessage("User created successfully");
-        //     } else {
-        //     //   setMessage("Some error occured");
-        //     console.log("REGISTRATION ERROR");
-        //     }
-        //   } catch (err) {
-        //     console.log(err);
-        // }
     }
     };
 
@@ -122,10 +118,6 @@ function AddProductsPage() {
             <label className="label">Upload Product Photo</label>
             <input onChange={handleProductPhotoFileName} className="input"
                 value={ProductPhotoFileName} type="file" />
-
-            {/* <label className="label">Password</label>
-            <input onChange={handlePassword} className="input"
-                value={password} type="password" /> */}
 
             <button onClick={handleSubmit} className="btn_register" type="submit">
                 Add
