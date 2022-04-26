@@ -4,10 +4,11 @@ from numpy import product
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
-from EntiretyApp.models import Users, Products, UserProductsMappings
-from EntiretyApp.serializers import UserSerializer, ProductSerializer, UserProductsMappingSerializer
+from EntiretyApp.models import Users, Products, UserProductsMappings, UserRolesMappings, Roles
+from EntiretyApp.serializers import UserSerializer, ProductSerializer, UserProductsMappingSerializer, RoleSerializer, UserRolesMappingsSerializer
 
 from django.core.files.storage import default_storage
+import hashlib
 
 @csrf_exempt
 def userRegistrationApi(request,id=0):
@@ -17,9 +18,15 @@ def userRegistrationApi(request,id=0):
         return JsonResponse(users_serializer.data,safe=False)
     elif request.method=='POST':
         user_data=JSONParser().parse(request)
-        users_serializer=UserSerializer(data=user_data)
+        user_data['Password'] = hashlib.sha256(str(user_data['Password']).encode('utf-8')).hexdigest()
+        users_serializer=UserSerializer(data=user_data)  
         if users_serializer.is_valid():
             users_serializer.save()
+            user_id = Users.objects.filter(UserName=user_data['UserName'])\
+                               .values_list('UserId', flat=True)
+            role_mapping_serializer = UserRolesMappingsSerializer(data={'UserId' : user_id[0], 'RoleId' : 2})
+            if role_mapping_serializer.is_valid():
+                role_mapping_serializer.save()
             return JsonResponse("Registration Successful",safe=False)
         return JsonResponse("Failed to Register",safe=False)
 
@@ -40,7 +47,7 @@ def userLoginApi(request):
                 userId = value
             if(key == 'UserName' and value == username):
                 usernameExist = True
-            if(key == 'Password' and value == password) :
+            if(key == 'Password' and value == hashlib.sha256(str(password).encode('utf-8')).hexdigest()) :
                 passwordExist = True
             if(usernameExist and passwordExist) :
                 userExist = True
@@ -98,4 +105,13 @@ def userProductMapApi(request,userid=0, productid=0):
         mappings=UserProductsMappings.objects.get(UserId=userid, ProductId=productid)
         mappings.delete()
         return JsonResponse("Product removed from the cart",safe=False)
+    
+@csrf_exempt
+def userRoleMapApi(request,userid=0):
+    if request.method=='GET':
+        roleId = UserRolesMappings.objects.filter(UserId=userid)\
+                               .values_list('RoleId', flat=True)
+        role = Roles.objects.filter(RoleId = roleId[0])
+        role_serializer=RoleSerializer(role,many=True)
+        return JsonResponse(role_serializer.data, safe=False)
   

@@ -17,3 +17,12 @@ class UserProductsMappings(models.Model):
     MappingId = models.AutoField(primary_key=True)
     UserId = models.IntegerField()
     ProductId = models.IntegerField()
+
+class Roles(models.Model):
+    RoleId = models.AutoField(primary_key=True)
+    Role = models.CharField(max_length=500)
+
+class UserRolesMappings(models.Model):
+    MappingId = models.AutoField(primary_key=True)
+    UserId = models.IntegerField()
+    RoleId = models.IntegerField()

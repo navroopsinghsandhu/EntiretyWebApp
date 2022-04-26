@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from EntiretyApp.models import Users, Products, UserProductsMappings
+from EntiretyApp.models import Users, Products, UserProductsMappings, Roles, UserRolesMappings
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,3 +15,13 @@ class UserProductsMappingSerializer(serializers.ModelSerializer):
     class Meta:
         model=UserProductsMappings
         fields=('MappingId','UserId','ProductId')
+
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Roles
+        fields=('RoleId','Role')
+
+class UserRolesMappingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=UserRolesMappings
+        fields=('MappingId','UserId','RoleId')

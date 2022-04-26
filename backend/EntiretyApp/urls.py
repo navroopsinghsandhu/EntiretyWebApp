@@ -16,6 +16,8 @@ urlpatterns=[
     url(r'^productuser/([0-9]+)$',views.userProductMapApi),
     url(r'^productuser/([0-9]+)/([0-9]+)$',views.userProductMapApi),
 
+    url(r'^userrole/([0-9]+)$',views.userRoleMapApi),
+
     url(r'^login$',views.userLoginApi)
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
