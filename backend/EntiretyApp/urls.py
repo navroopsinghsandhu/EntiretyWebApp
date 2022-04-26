@@ -14,6 +14,7 @@ urlpatterns=[
 
     url(r'^productuser$',views.userProductMapApi),
     url(r'^productuser/([0-9]+)$',views.userProductMapApi),
+    url(r'^productuser/([0-9]+)/([0-9]+)$',views.userProductMapApi),
 
     url(r'^login$',views.userLoginApi)
     

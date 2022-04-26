@@ -27,6 +27,7 @@ def userRegistrationApi(request,id=0):
 def userLoginApi(request):
     data = JSONParser().parse(request)
     userExist = False
+    userId = 0
     username = data["UserName"]
     password = data["Password"]
     users = Users.objects.all()
@@ -35,6 +36,8 @@ def userLoginApi(request):
         usernameExist = False
         passwordExist = False
         for key, value in x.items():
+            if(key == 'UserId'):
+                userId = value
             if(key == 'UserName' and value == username):
                 usernameExist = True
             if(key == 'Password' and value == password) :
@@ -45,13 +48,14 @@ def userLoginApi(request):
         if(userExist) :
             break
     if(userExist) :
-        return JsonResponse({"message" : "Login Successful", "token": username},safe=False)
+        return JsonResponse({"message" : "Login Successful", "token": userId},safe=False)
     return JsonResponse({"message" : "Username or Password is incorrect", "token" : ''},safe=False)
     
 @csrf_exempt
 def productsApi(request,id=0):
     if request.method=='GET':
         products = Products.objects.all()
+        print("products", products)
         products_serializer=ProductSerializer(products,many=True)
         return JsonResponse(products_serializer.data,safe=False)
     elif request.method=='POST':
@@ -67,11 +71,22 @@ def productsApi(request,id=0):
         return JsonResponse("Product deleted",safe=False)
 
 @csrf_exempt
-def userProductMapApi(request,id=0):
+def userProductMapApi(request,userid=0, productid=0):
     if request.method=='GET':
-        mappings = UserProductsMappings.objects.all()
-        mapping_serializer=UserProductsMappingSerializer(mappings,many=True)
-        return JsonResponse(mapping_serializer.data,safe=False)
+        mappingids = UserProductsMappings.objects.filter(UserId=userid)\
+                               .values_list('ProductId', flat=True)
+        dataArray = {}
+        y = 1
+        keyHeader = "product"
+        for x in mappingids:
+            print(x)
+            product = Products.objects.filter(ProductId = x)
+            products_serializer=ProductSerializer(product,many=True)
+            key = keyHeader+str(y)
+            print(key)
+            dataArray[key] = products_serializer.data
+            y += 1
+        return JsonResponse(dataArray, safe=False)
     elif request.method=='POST':
         mapping_data=JSONParser().parse(request)
         mapping_serializer=UserProductsMappingSerializer(data=mapping_data)
@@ -80,7 +95,7 @@ def userProductMapApi(request,id=0):
             return JsonResponse("Product added to the cart",safe=False)
         return JsonResponse("Failed to add product to the cart",safe=False)
     elif request.method=='DELETE':
-        mappings=UserProductsMappings.objects.get(MappingId=id)
+        mappings=UserProductsMappings.objects.get(UserId=userid, ProductId=productid)
         mappings.delete()
         return JsonResponse("Product removed from the cart",safe=False)
   
