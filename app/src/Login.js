@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
- 
+
 function Login({ setToken }) {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -42,16 +42,17 @@ function Login({ setToken }) {
   
       var { uname, pass } = document.forms[0];
   
-      // Find user login info
-      const userData = database.find((user) => user.UserName === uname.value);
+      // // Find user login info
+      // console.log("hash(uname.value)", hash(uname.value)['result'])
+      // const userData = database.find((user) => user.UserName === hash(uname.value));
   
-      // Compare user info
-      if (userData) {
-        if (userData.Password !== pass.value) {
-          // Invalid password
-          setErrorMessages({ name: "pass", message: errors.pass });
-        } else {
-          setIsSubmitted(true);
+      // // Compare user info
+      // if (userData) {
+      //   if (userData.Password !== pass.value) {
+      //     // Invalid password
+      //     setErrorMessages({ name: "pass", message: errors.pass });
+      //   } else {
+      //     setIsSubmitted(true);
           // Redirect to User's home page with products list
         
         fetch("http://127.0.0.1:8000/login", {
@@ -70,12 +71,14 @@ function Login({ setToken }) {
             console.log(userdata["token"])
             // token = userdata;
             setToken(userdata["token"]);
+            setIsSubmitted(true);
         })
-        }
-      } else {
-        // Username not found
-        setErrorMessages({ name: "uname", message: errors.uname });
-      }
+        
+        // }
+      // } else {
+      //   // Username not found
+      //   setErrorMessages({ name: "uname", message: errors.uname });
+      // }
       navigate(`/`);
     };
   
@@ -122,4 +125,14 @@ Login.propTypes = {
   setToken: PropTypes.func.isRequired
 };
 
+function hash(string) {
+  const utf8 = new TextEncoder().encode(string);
+  return crypto.subtle.digest('SHA-256', utf8).then((hashBuffer) => {
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+      .map((bytes) => bytes.toString(16).padStart(2, '0'))
+      .join('');
+    return hashHex;
+  });
+}
 export default Login;

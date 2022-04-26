@@ -6,6 +6,7 @@ import Nav from './Nav';
 import Register from './Register';
 import UserPage from './UserPage';
 import ProductsPage from './ProductsPage';
+import Cart from './Cart';
 import AddProductsPage from './AddProductsPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
@@ -24,6 +25,7 @@ function App() {
             <Route path="/login" element={<Login setToken={setToken}/>} />
             <Route path="/products" element={<ProductsPage/>} />
             <Route path="/addproducts" element={<AddProductsPage/>} />
+            <Route path="/cart" element={<Cart/>} />
             <Route path="/user" element={<UserPage/>} />
         </Routes>
     </div>

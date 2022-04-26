@@ -12,7 +12,7 @@ function ProductsPage() {
             ProductId={product.ProductId}
             ProductName={product.ProductName}
             ProductPrice={product.ProductPrice}
-            ProductPhotoFileName={product.ProductPhotoFileName}
+            ProductPhotoFileName={require('./product_images/Stapler.jpg')}
           />
         );
     }
@@ -24,6 +24,7 @@ function ProductsPage() {
         .then((res) => res.json())
         .then((data) => {
             setData(data);
+            console.log("data", data)
         })
         .catch((err) => {
             console.log(err);
@@ -34,34 +35,6 @@ function ProductsPage() {
     return (
 
     <div>
-        
-        <h1 className="heading">All Products</h1>
-          <Product
-            ProductName="Stapler"
-            ProductPrice="30"
-            ProductPhotoFileName= {require('./product_images/Stapler.jpg')}
-          />
-          <Product
-            ProductName="Highlighters"
-            ProductPrice="20"
-            ProductPhotoFileName= {require('./product_images/Highlighters.jpg')}
-          />
-          <Product
-            ProductName="Pens"
-            ProductPrice="10"
-            ProductPhotoFileName= {require('./product_images/Pens.jpg')}
-          />
-          <Product
-            ProductName="Chair"
-            ProductPrice="80"
-            ProductPhotoFileName= {require('./product_images/Chair.jpg')}
-          />
-          <Product
-            ProductName="Desk"
-            ProductPrice="150"
-            ProductPhotoFileName= {require('./product_images/Desk.jpg')}
-          />
-
         {data.map(createProduct)}
         <Footer /> 
         

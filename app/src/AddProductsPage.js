@@ -49,7 +49,7 @@ function AddProductsPage() {
     // Handling the form submission
     const handleSubmit = (e) => {
     e.preventDefault();
-    if (ProductName === '' || ProductPrice === '' || ProductPhotoFileName === '') {
+    if (ProductName === '' || ProductPrice === '') {
         setError(true);
     } else {
         setSubmitted(true);
@@ -59,7 +59,7 @@ function AddProductsPage() {
             fetch("http://127.0.0.1:8000/products", {
               method: "POST",
               body: JSON.stringify({
-                ProductPhotoFileName: ProductPhotoFileName,
+                ProductPhotoFileName: "sample.jpg",
                 ProductName: ProductName,
                 ProductPrice: ProductPrice
               }),
@@ -115,9 +115,9 @@ function AddProductsPage() {
             <input onChange={handleProductPrice} className="input"
                 value={ProductPrice} type="text" />
 
-            <label className="label">Upload Product Photo</label>
+            {/* <label className="label">Upload Product Photo</label>
             <input onChange={handleProductPhotoFileName} className="input"
-                value={ProductPhotoFileName} type="file" />
+                value={ProductPhotoFileName} type="file" /> */}
 
             <button onClick={handleSubmit} className="btn_register" type="submit">
                 Add
