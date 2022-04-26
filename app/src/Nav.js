@@ -27,6 +27,9 @@ function Nav() {
                 <Link to="/addproducts" style={{ textDecoration: 'none' }}>
                     <li>Add Products</li>
                 </Link>
+                <Link to="/cart" style={{ textDecoration: 'none' }}>
+                    <li>Cart</li>
+                </Link>
             </ul>
     
             <div className="rightNav">
