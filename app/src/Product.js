@@ -1,8 +1,11 @@
+import { display } from '@mui/system';
 import React from 'react';
+import { useState } from 'react';
 
 function Product(props) {
-
+    const [addedFlag, setaddedFlag] = useState(false)
     function addToCart(){
+        setaddedFlag(true)
         fetch("http://127.0.0.1:8000/productuser", {
               method: "POST",
               body: JSON.stringify({
@@ -11,6 +14,19 @@ function Product(props) {
               }),
             });
     }
+
+    
+    fetch("http://127.0.0.1:8000/productusercheck/" + localStorage.getItem('token') + "/" + props.ProductId)
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data.isAdded == "True")
+        setTimeout(()=>{
+            if(data.isAdded == "True"){
+                setaddedFlag(true)
+             }
+        }, 100)
+      
+    })
 
     return (
 
@@ -24,7 +40,7 @@ function Product(props) {
                 <p className="info">Product Price ${props.ProductPrice}</p>
                 {/* <p className="info">{props.key}</p>; */}
 
-                <button className="add_to_cart_btn" onClick={addToCart}>Add to Cart</button>
+                { localStorage.getItem("role") == 'manager' ? "" :<button className="add_to_cart_btn" onClick={addedFlag ? null :addToCart}>{addedFlag ? "Added" : "Add to Cart"}</button>}
             </div>
         </div>
     </div>
@@ -32,4 +48,8 @@ function Product(props) {
     );
 }
 
+
+function displayMessage(){
+    alert("Product already added to the cart")
+}
 export default Product;
