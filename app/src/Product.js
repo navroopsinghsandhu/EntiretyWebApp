@@ -28,6 +28,7 @@ function Product(props) {
       
     })
 
+
     return (
 
     <div>
@@ -41,6 +42,7 @@ function Product(props) {
                 {/* <p className="info">{props.key}</p>; */}
 
                 { localStorage.getItem("role") == 'customer' ? <button className="add_to_cart_btn" style={{padding:10}} onClick={addedFlag ? null :addToCart}>{addedFlag ? "Added" : "Add to Cart"}</button> : ""}
+                <button id ={props.ProductId} className='remove_button' style={{marginLeft:10, padding:5}} onClick={(e) =>{props.removeProduct(e.target.id)}}> Remove </button>
             </div>
         </div>
     </div>

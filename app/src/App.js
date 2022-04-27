@@ -8,6 +8,7 @@ import UserPage from './UserPage';
 import ProductsPage from './ProductsPage';
 import Cart from './Cart';
 import AddProductsPage from './AddProductsPage';
+import MemberOffers from './MemberOffers';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import useToken from './useToken';
@@ -25,6 +26,7 @@ function App() {
             <Route path="/login" element={<Login setToken={setToken}/>} />
             <Route path="/products" element={<ProductsPage/>} />
             <Route path="/addproducts" element={<AddProductsPage/>} />
+            <Route path="/memberoffers" element={<MemberOffers/>} />
             <Route path="/cart" element={<Cart/>} />
             <Route path="/user" element={<UserPage/>} />
         </Routes>

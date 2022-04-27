@@ -18,13 +18,16 @@ def userRegistrationApi(request,id=0):
         return JsonResponse(users_serializer.data,safe=False)
     elif request.method=='POST':
         user_data=JSONParser().parse(request)
+        role_id = 2
+        if(user_data["wantMembership"]) :
+            role_id = 3
         user_data['Password'] = hashlib.sha256(str(user_data['Password']).encode('utf-8')).hexdigest()
         users_serializer=UserSerializer(data=user_data)  
         if users_serializer.is_valid():
             users_serializer.save()
             user_id = Users.objects.filter(UserName=user_data['UserName'])\
                                .values_list('UserId', flat=True)
-            role_mapping_serializer = UserRolesMappingsSerializer(data={'UserId' : user_id[0], 'RoleId' : 2})
+            role_mapping_serializer = UserRolesMappingsSerializer(data={'UserId' : user_id[0], 'RoleId' : role_id})
             if role_mapping_serializer.is_valid():
                 role_mapping_serializer.save()
             return JsonResponse("Registration Successful",safe=False)

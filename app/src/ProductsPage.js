@@ -13,6 +13,7 @@ function ProductsPage() {
             ProductName={product.ProductName}
             ProductPrice={product.ProductPrice}
             ProductPhotoFileName={require('./product_images/general_product_img.jpg')}
+            removeProduct={removeProduct}
           />
         );
     }
@@ -31,6 +32,22 @@ function ProductsPage() {
         });
     }, []);
 
+    function removeProduct(productId = 0){
+        console.log("id", productId)
+        fetch("http://127.0.0.1:8000/products/" + productId, { method: 'DELETE' })
+            .then(() => {
+                fetch("http://127.0.0.1:8000/products")
+                .then((res) => res.json())
+                .then((data) => {
+                    setData(data);
+                    console.log("data", data)
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+            });
+    }
 
     return (
 
