@@ -11,8 +11,7 @@ function Cart(props) {
 
             {/****** THIS PART WILL REPEAT FOR EACH DIFFERENT PRODUCT **************/}
                 <p className="p_name">{product.ProductName}</p>
-                <button className='add_button'> - </button>
-                <button className='remove_button'> + </button>
+                <button id ={product.ProductId} className='remove_button' onClick={(e) =>removeProduct(e.target.id)}> Remove </button>
                 <p className="p_price">${product.ProductPrice}</p>
             {/***********************************************************************/}
                 
@@ -71,6 +70,11 @@ function Cart(props) {
     </div>
 
     );
+}
+
+function removeProduct(productId = 0){
+    fetch("http://127.0.0.1:8000/productuser/" + localStorage.getItem('token') + '/' + productId, { method: 'DELETE' })
+        .then(() => console.log('Delete successful'));
 }
 
 export default Cart;
