@@ -70,8 +70,16 @@ function Login({ setToken }) {
         res.json()).then(userdata => {
             console.log(userdata["token"])
             // token = userdata;
-            setToken(userdata["token"]);
-            setIsSubmitted(true);
+            if(userdata["token"] != ''){
+              setToken(userdata["token"]);
+              setIsSubmitted(true);
+              localStorage.setItem('role', userdata["role"]);
+              localStorage.setItem('name', userdata["UserName"]);
+              console.log(userdata)
+            } else {
+              alert("Could not login")
+            }
+            
         })
         
         // }
@@ -125,14 +133,4 @@ Login.propTypes = {
   setToken: PropTypes.func.isRequired
 };
 
-function hash(string) {
-  const utf8 = new TextEncoder().encode(string);
-  return crypto.subtle.digest('SHA-256', utf8).then((hashBuffer) => {
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray
-      .map((bytes) => bytes.toString(16).padStart(2, '0'))
-      .join('');
-    return hashHex;
-  });
-}
 export default Login;

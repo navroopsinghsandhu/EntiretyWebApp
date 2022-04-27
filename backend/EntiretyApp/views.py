@@ -45,6 +45,13 @@ def userLoginApi(request):
         for key, value in x.items():
             if(key == 'UserId'):
                 userId = value
+                roleId = UserRolesMappings.objects.filter(UserId=userId)\
+                               .values_list('RoleId', flat=True)
+                role = Roles.objects.filter(RoleId = roleId[0])
+                role_serializer=RoleSerializer(role,many=True)
+                userRole = role_serializer.data[0]["Role"]
+            if(key == 'UserName'):
+                userName = value
             if(key == 'UserName' and value == username):
                 usernameExist = True
             if(key == 'Password' and value == hashlib.sha256(str(password).encode('utf-8')).hexdigest()) :
@@ -55,8 +62,8 @@ def userLoginApi(request):
         if(userExist) :
             break
     if(userExist) :
-        return JsonResponse({"message" : "Login Successful", "token": userId},safe=False)
-    return JsonResponse({"message" : "Username or Password is incorrect", "token" : ''},safe=False)
+        return JsonResponse({"message" : "Login Successful", "token": userId, "role" : userRole, "UserName" : userName},safe=False)
+    return JsonResponse({"message" : "Username or Password is incorrect", "token" : '', "role" : '',  "UserName" : ''},safe=False)
     
 @csrf_exempt
 def productsApi(request,id=0):
@@ -115,3 +122,13 @@ def userRoleMapApi(request,userid=0):
         role_serializer=RoleSerializer(role,many=True)
         return JsonResponse(role_serializer.data, safe=False)
   
+@csrf_exempt
+def userProductMapCheckApi(request,userid=0, productid=0):
+    if request.method=='GET':
+        mappingids = UserProductsMappings.objects.filter(UserId=userid)\
+                               .values_list('ProductId', flat=True)
+        
+        isAdded = "False"
+        if(int(productid) in mappingids) :
+            isAdded = "True"
+        return JsonResponse({"isAdded" : isAdded}, safe=False)

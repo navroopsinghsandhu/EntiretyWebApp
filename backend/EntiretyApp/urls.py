@@ -18,6 +18,8 @@ urlpatterns=[
 
     url(r'^userrole/([0-9]+)$',views.userRoleMapApi),
 
+    url(r'^productusercheck/([0-9]+)/([0-9]+)$',views.userProductMapCheckApi),
+
     url(r'^login$',views.userLoginApi)
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

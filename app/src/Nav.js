@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function Nav({token, setToken}) {
     const [ isLoggedIn, setIsLoggedIn] = useState(true)
-
+    const [ role, setRole] = useState("customer")
     let logInFlag = false;
     if(typeof(token)  == "string" && token != "false") {
         logInFlag = true
@@ -13,6 +13,7 @@ function Nav({token, setToken}) {
 
     useEffect(() => {
         setIsLoggedIn(logInFlag)
+        setRole(localStorage.getItem("role"))
     });
  
     const handleClick = () => {
@@ -39,12 +40,12 @@ function Nav({token, setToken}) {
                 <Link to="/products" style={{ textDecoration: 'none' }}>
                     <li>Products</li>
                 </Link>
-                <Link to="/addproducts" style={{ textDecoration: 'none' }}>
-                    <li>Add Products</li>
-                </Link> 
-                <Link to="/cart" style={{ textDecoration: 'none' }}>
-                    <li>Cart</li>
-                </Link>
+
+                {role == 'manager' ? <Link to="/addproducts" style={{ textDecoration: 'none' }}>
+                    <li>Add Products</li>  </Link>: ''}
+                
+                {role == 'customer' ? <Link to="/cart" style={{ textDecoration: 'none' }}>
+                    <li>Cart</li></Link> : ''}
             </ul>
 
             <div className="rightNav">
