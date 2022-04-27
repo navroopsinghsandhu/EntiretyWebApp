@@ -63,7 +63,11 @@ function AddProductsPage() {
                 ProductName: ProductName,
                 ProductPrice: ProductPrice
               }),
-            });
+            })
+            .then((res) => res.json())
+            .then((data) => {
+               alert(data)
+            })
     }
     };
 
@@ -100,10 +104,10 @@ function AddProductsPage() {
         </div>
 
         {/* Calling to the methods */}
-        <div className="messages">
+        {/* <div className="messages">
         {errorMessage()}
         {successMessage()}
-        </div>
+        </div> */}
 
         <form>
             {/* Labels and inputs for form data */}

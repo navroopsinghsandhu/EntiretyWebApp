@@ -11,7 +11,7 @@ function Home() {
                 <div className="firstHalf">
                     <h1 className="text-big" id="web">Our Products</h1>
                     <p className="text-small">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    We offer fully featured custom software solutions fully tailored to the needs of your business. We always focus on quality, timely delivery and budget friendly solutions to make sure you get exactly what you need under your budget limits.
                     </p>
     
     
@@ -23,10 +23,10 @@ function Home() {
             <div className="box-main">
                 <div className="firstHalf">
                     <h1 className="text-big" id="program">
-                        Offers and Discounts
+                        Reliability
                     </h1>
                     <p className="text-small">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Many businesses run on critical software we developed. You can depend on our software.
                     </p>
     
     

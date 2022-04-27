@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './Form.css';
 
 function Login({ setToken }) {
     const [errorMessages, setErrorMessages] = useState({});
@@ -102,16 +103,16 @@ function Login({ setToken }) {
         <form onSubmit={handleSubmit}>
           <div className="input-container">
             <label>Username </label>
-            <input type="text" name="uname" required />
+            <input type="text" name="uname" required  className="input"/>
             {renderErrorMessage("uname")}
           </div>
           <div className="input-container">
             <label>Password </label>
-            <input type="password" name="pass" required />
+            <input type="password" name="pass" required  className="input"/>
             {renderErrorMessage("pass")}
           </div>
           <div className="button-container">
-          <input type="submit" />
+          <input type="submit" className="btn_register"/>
           </div>
         </form>
       </div>

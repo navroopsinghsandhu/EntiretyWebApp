@@ -12,7 +12,7 @@ function ProductsPage() {
             ProductId={product.ProductId}
             ProductName={product.ProductName}
             ProductPrice={product.ProductPrice}
-            ProductPhotoFileName={require('./product_images/Stapler.jpg')}
+            ProductPhotoFileName={require('./product_images/general_product_img.jpg')}
           />
         );
     }

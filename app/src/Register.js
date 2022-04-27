@@ -56,7 +56,11 @@ function Register() {
                 LastName: lastName,
                 Password: password
               }),
-            });
+            })
+            .then((res) => res.json())
+            .then((data) => {
+               alert(data)
+            })
         //     let resJson = res.json();
         //     if (res.status === 200) {
         //     //   setName("");
@@ -105,10 +109,10 @@ function Register() {
         </div>
 
         {/* Calling to the methods */}
-        <div className="messages">
+        {/* <div className="messages">
         {errorMessage()}
         {successMessage()}
-        </div>
+        </div> */}
 
         <form>
         {/* Labels and inputs for form data */}

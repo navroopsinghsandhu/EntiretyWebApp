@@ -1,7 +1,8 @@
-import logo from './logo.svg';
+import logo from './product_images/startup_logo.jpeg';
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Nav({token, setToken}) {
     const [ isLoggedIn, setIsLoggedIn] = useState(true)
@@ -19,7 +20,10 @@ function Nav({token, setToken}) {
     const handleClick = () => {
         setIsLoggedIn(false)
         setToken(false)
+        localStorage.clear();
+        navigate(`/`);
     }
+    const navigate = useNavigate();
 
     return (
 
@@ -29,23 +33,24 @@ function Nav({token, setToken}) {
                 <div className="logo">
                     <img src={logo} alt="logo"/>
                 </div>
+                { !isLoggedIn ? <Link to="/login" style={{ textDecoration: 'none' }}>
+                    <li>Login</li>
+                </Link> : <li><img className="circle-img" src={require('./product_images/human.png')} /><h1 style={{color: "black"}}>{ localStorage.getItem('name')}</h1></li>}
                 <Link to="/" style={{ textDecoration: 'none' }}>
                     <li>Home</li>
                 </Link>
-                { !isLoggedIn ? <Link to="/login" style={{ textDecoration: 'none' }}>
-                    <li>Login</li>
-                </Link>: <li onClick={handleClick} >Logout</li> }
                 { !isLoggedIn  ? <Link to="/register" style={{ textDecoration: 'none' }}>
                     <li>Register</li> </Link>: '' }
                 <Link to="/products" style={{ textDecoration: 'none' }}>
                     <li>Products</li>
                 </Link>
 
-                {role == 'manager' ? <Link to="/addproducts" style={{ textDecoration: 'none' }}>
+                 {isLoggedIn && role == 'manager' ? <Link to="/addproducts" style={{ textDecoration: 'none' }}>
                     <li>Add Products</li>  </Link>: ''}
                 
                 {role == 'customer' ? <Link to="/cart" style={{ textDecoration: 'none' }}>
                     <li>Cart</li></Link> : ''}
+                { !isLoggedIn ? "": <li onClick={handleClick} >Logout</li> }
             </ul>
 
             <div className="rightNav">

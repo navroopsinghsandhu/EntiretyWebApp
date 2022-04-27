@@ -50,7 +50,7 @@ def userLoginApi(request):
                 role = Roles.objects.filter(RoleId = roleId[0])
                 role_serializer=RoleSerializer(role,many=True)
                 userRole = role_serializer.data[0]["Role"]
-            if(key == 'UserName'):
+            if(key == 'FirstName'):
                 userName = value
             if(key == 'UserName' and value == username):
                 usernameExist = True

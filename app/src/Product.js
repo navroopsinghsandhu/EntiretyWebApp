@@ -40,7 +40,7 @@ function Product(props) {
                 <p className="info">Product Price ${props.ProductPrice}</p>
                 {/* <p className="info">{props.key}</p>; */}
 
-                { localStorage.getItem("role") == 'manager' ? "" :<button className="add_to_cart_btn" onClick={addedFlag ? null :addToCart}>{addedFlag ? "Added" : "Add to Cart"}</button>}
+                { localStorage.getItem("role") == 'customer' ? <button className="add_to_cart_btn" style={{padding:10}} onClick={addedFlag ? null :addToCart}>{addedFlag ? "Added" : "Add to Cart"}</button> : ""}
             </div>
         </div>
     </div>
