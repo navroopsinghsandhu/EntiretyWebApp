@@ -48,8 +48,10 @@ function Nav({token, setToken}) {
                  {isLoggedIn && role == 'manager' ? <Link to="/addproducts" style={{ textDecoration: 'none' }}>
                     <li>Add Products</li>  </Link>: ''}
                 
-                {role == 'customer' ? <Link to="/cart" style={{ textDecoration: 'none' }}>
+                {role == 'customer' || role == 'member'? <Link to="/cart" style={{ textDecoration: 'none' }}>
                     <li>Cart</li></Link> : ''}
+                {isLoggedIn && role == 'member'? <Link to="/memberoffers" style={{ textDecoration: 'none' }}>
+                    <li>Member Offers</li>  </Link>: ''}
                 { !isLoggedIn ? "": <li onClick={handleClick} >Logout</li> }
             </ul>
 

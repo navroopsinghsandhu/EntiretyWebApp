@@ -9,6 +9,7 @@ function Register() {
     const [lastName, setLastName] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [wantMembership, setwantMembership] = useState(false);
 
     // States for checking the errors
     const [submitted, setSubmitted] = useState(false);
@@ -38,6 +39,12 @@ function Register() {
     setSubmitted(false);
     };
 
+    const handleMembership = (e) => {
+        setwantMembership(!wantMembership);
+        // setSubmitted(false);
+    };
+    
+
     // Handling the form submission
     const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,7 +53,7 @@ function Register() {
     } else {
         setSubmitted(true);
         setError(false);
-        console.log(firstName, lastName, userName, password);
+        console.log(firstName, lastName, userName, password, wantMembership);
         // try {
             fetch("http://127.0.0.1:8000/user", {
               method: "POST",
@@ -54,7 +61,8 @@ function Register() {
                 UserName: userName,
                 FirstName: firstName,
                 LastName: lastName,
-                Password: password
+                Password: password,
+                wantMembership: wantMembership
               }),
             })
             .then((res) => res.json())
@@ -131,7 +139,11 @@ function Register() {
         <label className="label">Password</label>
         <input onChange={handlePassword} className="input"
             value={password} type="password" />
-
+        <div className="label">
+        <label>Register as a member</label>
+        <input  style={{ marginLeft:10}} onChange={handleMembership} className="input"
+            value={wantMembership} type="checkbox" />
+        </div>
         <button onClick={handleSubmit} className="btn_register" type="submit">
             Submit
         </button>
