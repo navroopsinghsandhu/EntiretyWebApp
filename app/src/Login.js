@@ -69,14 +69,12 @@ function Login({ setToken }) {
         })
         .then(res =>
         res.json()).then(userdata => {
-            console.log(userdata["token"])
             // token = userdata;
             if(userdata["token"] != ''){
               setToken(userdata["token"]);
               setIsSubmitted(true);
               localStorage.setItem('role', userdata["role"]);
               localStorage.setItem('name', userdata["UserName"]);
-              console.log(userdata)
             } else {
               alert("Could not login")
             }

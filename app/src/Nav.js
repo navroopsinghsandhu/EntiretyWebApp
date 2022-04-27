@@ -25,6 +25,12 @@ function Nav({token, setToken}) {
     }
     const navigate = useNavigate();
 
+    function resetUnderline(){
+        var elements = document.getElementsByClassName("underlined");
+        for(var i = 0; i < elements.length; i++) {
+            elements[i].style.textDecoration = 'none';
+        }       
+    }
     return (
 
     <div>
@@ -33,25 +39,25 @@ function Nav({token, setToken}) {
                 <div className="logo">
                     <img src={logo} alt="logo"/>
                 </div>
-                { !isLoggedIn ? <Link to="/login" style={{ textDecoration: 'none' }}>
-                    <li>Login</li>
+                { !isLoggedIn ? <Link to="/login" >
+                    <li class="underlined" onClick={(e)=>{ resetUnderline(); e.target.style.textDecoration = "underline" }}>Login</li>
                 </Link> : <li><img className="circle-img" src={require('./product_images/human.png')} /><h1 style={{color: "black"}}>{ localStorage.getItem('name')}</h1></li>}
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                    <li>Home</li>
+                <Link to="/">
+                    <li class="underlined" onClick={(e)=>{ resetUnderline(); e.target.style.textDecoration = "underline"}}>Home</li>
                 </Link>
-                { !isLoggedIn  ? <Link to="/register" style={{ textDecoration: 'none' }}>
-                    <li>Register</li> </Link>: '' }
-                <Link to="/products" style={{ textDecoration: 'none' }}>
-                    <li>Products</li>
+                { !isLoggedIn  ? <Link to="/register" >
+                    <li class="underlined" onClick={(e)=>{ resetUnderline(); e.target.style.textDecoration = "underline"}}>Register</li> </Link>: '' }
+                <Link to="/products" >
+                    <li class="underlined" onClick={(e)=>{ resetUnderline(); e.target.style.textDecoration = "underline"}}>Products</li>
                 </Link>
 
-                 {isLoggedIn && role == 'manager' ? <Link to="/addproducts" style={{ textDecoration: 'none' }}>
-                    <li>Add Products</li>  </Link>: ''}
+                 {isLoggedIn && role == 'manager' ? <Link to="/addproducts">
+                    <li class="underlined" onClick={(e)=>{ resetUnderline(); e.target.style.textDecoration = "underline"}}>Add Products</li>  </Link>: ''}
                 
-                {role == 'customer' || role == 'member'? <Link to="/cart" style={{ textDecoration: 'none' }}>
-                    <li>Cart</li></Link> : ''}
-                {isLoggedIn && role == 'member'? <Link to="/memberoffers" style={{ textDecoration: 'none' }}>
-                    <li>Member Offers</li>  </Link>: ''}
+                {role == 'customer' || role == 'member'? <Link to="/cart" >
+                    <li class="underlined" onClick={(e)=>{ resetUnderline(); e.target.style.textDecoration = "underline"}}>Cart</li></Link> : ''}
+                {isLoggedIn && role == 'member'? <Link to="/memberoffers" >
+                    <li class="underlined" onClick={(e)=>{ resetUnderline(); e.target.style.textDecoration = "underline"}}>Member Offers</li>  </Link>: ''}
                 { !isLoggedIn ? "": <li onClick={handleClick} >Logout</li> }
             </ul>
 

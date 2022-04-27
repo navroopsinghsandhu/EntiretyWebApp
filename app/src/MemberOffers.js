@@ -7,9 +7,9 @@ function MemberOffers() {
         <section className="firstsection">
             <div className="box-main">
                 <div className="firstHalf">
-                    <h1 className="text-big" id="web">For members only</h1>
+                    <h1 className="text-big" id="web">Exclusive for members only</h1>
                     <p className="text-small">
-                    Exclusive offers and discounts coming soon
+                    Offers and discounts coming soon
                     </p>
     
     

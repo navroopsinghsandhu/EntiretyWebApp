@@ -15,18 +15,19 @@ function Product(props) {
             });
     }
 
-    
-    fetch("http://127.0.0.1:8000/productusercheck/" + localStorage.getItem('token') + "/" + props.ProductId)
-    .then((res) => res.json())
-    .then((data) => {
-        console.log(data.isAdded == "True")
-        setTimeout(()=>{
-            if(data.isAdded == "True"){
-                setaddedFlag(true)
-             }
-        }, 100)
-      
-    })
+    if(localStorage.getItem('token') != null){
+        fetch("http://127.0.0.1:8000/productusercheck/" + localStorage.getItem('token') + "/" + props.ProductId)
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data.isAdded == "True")
+            setTimeout(()=>{
+                if(data.isAdded == "True"){
+                    setaddedFlag(true)
+                }
+            }, 100)
+        
+        })
+    }
 
 
     return (
@@ -41,8 +42,8 @@ function Product(props) {
                 <p className="info">Product Price ${props.ProductPrice}</p>
                 {/* <p className="info">{props.key}</p>; */}
 
-                { localStorage.getItem("role") == 'customer' ? <button className="add_to_cart_btn" style={{padding:10}} onClick={addedFlag ? null :addToCart}>{addedFlag ? "Added" : "Add to Cart"}</button> : ""}
-                <button id ={props.ProductId} className='remove_button' style={{marginLeft:10, padding:5}} onClick={(e) =>{props.removeProduct(e.target.id)}}> Remove </button>
+                { localStorage.getItem("role") == 'customer'  || localStorage.getItem("role") == 'member' ? <button className="add_to_cart_btn" style={{padding:10}} onClick={addedFlag ? null :addToCart}>{addedFlag ? "Added" : "Add to Cart"}</button> : ""}
+                { localStorage.getItem("role") == 'manager' ? <button id ={props.ProductId} className='remove_button' style={{marginLeft:10, padding:5}} onClick={(e) =>{props.removeProduct(e.target.id)}}> Remove </button> : ""}
             </div>
         </div>
     </div>
