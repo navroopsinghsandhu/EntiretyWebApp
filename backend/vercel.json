@@ -4,16 +4,10 @@
         "use": "@ardnt/vercel-python-wsgi",
         "config": { "maxLambdaSize": "15mb" }
     }],
-    "headers": [
+    "routes": [
         {
-          "source": "/(.*)",
-          "headers": [
-            {
-              "key": "access-control-allow-origin",
-              "value": "*"
-            }
-          ]
+            "src": "/(.*)",
+            "dest": "vercel_app/wsgi.py"
         }
-      ]
+    ]
 }
-
