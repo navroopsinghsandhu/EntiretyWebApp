@@ -84,6 +84,8 @@ def productsApi(request,id=0):
         return JsonResponse("Failed to add the product",safe=False)
     elif request.method=='DELETE':
         products = Products.objects.get(ProductId=id)
+        mappings=UserProductsMappings.objects.filter( ProductId=id)
+        mappings.delete()
         products.delete()
         return JsonResponse("Product deleted",safe=False)
 
